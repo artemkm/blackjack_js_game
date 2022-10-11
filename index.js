@@ -1,15 +1,32 @@
-let firstCard = 10
-let secondCard = 4
+// 2. Use getRandomCard() to set the values of firstCard and secondCard
+let firstCard = getRandomCard()
+let secondCard = getRandomCard()
+let cards = [firstCard, secondCard]
 let sum = firstCard + secondCard
 let hasBlackJack = false
 let isAlive = true
 let message = ""
-
-// 1. Store the message-el paragraph in a variable called messageEl
 let messageEl = document.getElementById("message-el")
-console.log(messageEl)
+let sumEl = document.getElementById("sum-el")
+let cardsEl = document.getElementById("cards-el")
+
+// 1. Create a function, getRandomCard(), that always returns the number 5
+function getRandomCard() {
+    return Math.floor(Math.random() * (21 - 1)) + 1;
+}
+
 
 function startGame() {
+    renderGame()
+}
+
+function renderGame() {
+    cardsEl.textContent = "Cards: "
+    for (let i = 0; i < cards.length; i++) {
+        cardsEl.textContent += cards[i] + " "
+    }
+    
+    sumEl.textContent = "Sum: " + sum
     if (sum <= 20) {
         message = "Do you want to draw a new card?"
     } else if (sum === 21) {
@@ -19,6 +36,15 @@ function startGame() {
         message = "You're out of the game!"
         isAlive = false
     }
-    // 2. Display the message in the messageEl using messageEl.textContent
     messageEl.textContent = message
+}
+
+
+function newCard() {
+    // 3. Use the getRandomCard() to set the value of card
+    let card = getRandomCard()
+    sum += card
+    cards.push(card)
+    console.log(cards)
+    renderGame()
 }
